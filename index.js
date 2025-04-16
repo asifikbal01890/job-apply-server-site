@@ -29,6 +29,19 @@ async function run() {
         const result =await JobsCollection.find().toArray()
         res.send(result)
     })
+
+    app.get("/jobs/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await JobsCollection.findOne(query);
+      res.send(result);
+  });
+
+  app.post("/jobs", async (req, res) => {
+      const data = req.body;
+      const result = await JobsCollection.insertOne(data);
+      res.send(result);
+    });
   
   } finally {
    
